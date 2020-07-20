@@ -1,0 +1,33 @@
+{
+  "name": "ui-extract-webpack-plugin",
+  "version": "1.0.0",
+  "description": "具有小程序UI组件生成功能的webpack插件",
+  "main": "index.js",
+  "scripts": {
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oc-master/ui-extract-webpack-plugin.git"
+  },
+  "keywords": [
+    "miniprogram",
+    "webpack",
+    "plugin"
+  ],
+  "author": "O_c",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Oc-master/ui-extract-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/Oc-master/ui-extract-webpack-plugin#readme",
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
