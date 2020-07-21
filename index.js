@@ -17,7 +17,7 @@ class UiExtractPlugin {
       const uiDependency = this.getUIDependency();
       uiDependency.forEach((item) => {
         const entries = [];
-        addEntries(this.context, item, entries);
+        this.addEntries(this.context, item, entries);
         entries.forEach((entry) => this.copyFiles(entry));
       });
     });
