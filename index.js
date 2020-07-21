@@ -10,16 +10,22 @@ class UiExtractPlugin {
   constructor(options) {
     const { context = '' } = options;
     this.context = context;
+    this.uiContext = path.resolve(this.context, 'libs/vant');
   }
 
   apply(compiler) {
     compiler.hooks.entryOption.tap('UiExtractPlugin', () => {
       const uiDependency = this.getUIDependency();
-      uiDependency.forEach((item) => {
-        const entries = [];
-        this.addEntries(this.context, item, entries);
-        entries.forEach((entry) => this.copyFiles(entry));
-      });
+      const { length } = uiDependency;
+      if (length) {
+        const necessaryModule = ['common', 'mixins', 'wxs'];
+        necessaryModule.forEach((item) => this.copyFiles(path.resolve(this.uiContext, item)));
+        uiDependency.forEach((item) => {
+          const entries = [];
+          this.addEntries(this.context, item, entries);
+          entries.forEach((entry) => this.copyFiles(entry));
+        });
+      }
     });
   }
 
@@ -34,7 +40,7 @@ class UiExtractPlugin {
         const components = Object.values(usingComponents);
         const { length: componentsLength } = components;
         if (!componentsLength) return acc;
-        const temp = components.filter((component) => component.indexOf('vant') !== -1);
+        const temp = components.filter((component) => (component.includes('vant') || component.includes('iview')));
         return [...acc, ...temp];
       } catch(e) {
         return acc;
@@ -89,6 +95,10 @@ class UiExtractPlugin {
         outputFileSync(item.replace('src', 'dist'), data);
       }
     });
+  }
+
+  getUiContext() {
+    const dirList = fs.readdirSync(this.context);
   }
 }
 
