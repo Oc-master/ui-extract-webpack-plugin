@@ -3,6 +3,8 @@ const path = require('path');
 const glob = require('glob');
 const dayjs = require('dayjs');
 const chalk = require('chalk');
+const postcss = require('postcss');
+const pxtorpx = require('postcss-pxtorpx');
 const replaceExt = require('replace-ext');
 const { outputFileSync } = require('fs-extra');
 
@@ -92,7 +94,17 @@ class UiExtractPlugin {
       const stat = fs.statSync(item);
       if (stat.isFile()) {
         const data = fs.readFileSync(item);
-        outputFileSync(item.replace('src', 'dist'), data);
+        const isStyleFile = item.includes('.wxss');
+        if (isStyleFile) {
+          const postcssOptions = {
+            multiplier: 2,
+            propList: ['*'],
+          };
+          const processedCss = postcss(pxtorpx(postcssOptions)).process(data).css;
+          outputFileSync(item.replace('src', 'dist'), processedCss);
+        } else {
+          outputFileSync(item.replace('src', 'dist'), data);
+        }
       }
     });
   }
