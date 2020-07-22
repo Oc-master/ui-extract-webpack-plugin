@@ -1,2 +1,34 @@
 # ui-extract-webpack-plugin
-具有小程序UI组件生成功能的webpack插件
+
+## Installation
+
+```shell
+$ npm install ui-extract-webpack-plugin --save
+```
+
+## Usage
+
+```javascript
+const UiExtractPlugin = require('ui-extract-webpack-plugin');
+
+module.exports = {
+  // ...
+  plugins: [
+    new UiExtractPlugin(options),
+    // ...
+  ],
+};
+```
+
+## Options
+
+### context
+
+* Type: `String`
+* Default: `undefined`
+
+源代码目录绝对路径
+
+## License
+
+[MIT](https://github.com/Oc-master/ui-extract-webpack-plugin/blob/master/LICENSE)
